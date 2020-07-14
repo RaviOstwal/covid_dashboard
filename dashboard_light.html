@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Covid-19 Dashboard</title>
+
+  <!-- Custom fonts for this page-->
+  <link href="./libs/fontawsome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for datatable-->
+  <link href="./libs/data_table/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+  <!-- Map Box style -->
+  <link href='./libs/map_box/mapbox-gl.css' rel='stylesheet' />
+
+  <!-- Custom styles for this page-->
+  <link href="./src/css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Theme Switch styles -->
+  <link href="./libs/theme_switch/theme_switch.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Covid-19 Dashboard</h1>
+            <a id="theme_switch" val="light" href="./dashboard_dark.html">Dark Mode</a>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Total Cases Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Cases</div>
+                      <div id="totalCases" class="h5 mb-0 font-weight-bold text-gray-800">...</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Total Recovered Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Recovered</div>
+                      <div id="totalRecovered" class="h5 mb-0 font-weight-bold text-gray-800">...</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-heartbeat fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Total Death Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Total Deaths</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div id="totalDeaths" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">...</div>
+                        </div>
+                        <div class="col">
+                          <div class="progress progress-sm mr-2">
+                            <div id="totalDeathsProgress" class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <div id="totalDeathsPercentage" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">...</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-user-times fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- New Cases Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">New Cases (Today)</div>
+                      <div id="newCases" class="h5 mb-0 font-weight-bold text-gray-800">...</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-ambulance fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Map Chart -->
+            <div class="col-xl-12 col-lg-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Covid-19 Worldwide</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div style="height: 40rem;">
+                    <div id="myMapChart" style="height: 100%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Bar Chart -->
+            <div class="col-xl-8 col-lg-7">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Top Countries</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-bar">
+                    <canvas id="myBarChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Pie Chart -->
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">World Today</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-primary"></i> Confirmed
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-success"></i> Recovered
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-danger"></i> Deaths
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Content Column -->
+            <div class="col-lg-12 mb-4">
+              <!-- DataTables -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Live Status</h6>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table id='allCountryDataTable' class="table" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Total Confirmed</th>
+                            <th>Total Recovered</th>
+                            <th>Total Deaths</th>
+                            <th>New Confirmed</th>
+                            <th>New Recovered</th>
+                            <th>New Deaths</th>
+                        </tr>
+                      </thead>
+                      
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="./libs/jquery/jquery.min.js"></script>
+  <script src="./libs/bootstrap/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="./libs/jquery-easing/jquery.easing.min.js"></script>
+  <script src="./libs/moment/moment.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="./src/js/sb-admin-2.min.js"></script>
+
+  <!-- Theme Switch -->
+  <script src="./libs/theme_switch/theme_switch.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="./libs/charts/Chart.min.js"></script>
+  <script src="./libs/data_table/jquery.dataTables.min.js"></script>
+  <script src="./libs/data_table/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Map Box -->
+  <script src='./libs/map_box/mapbox-gl.js'></script>
+  <script src='./libs/echarts/echarts.js'></script>
+  <script src='./libs/map_box/echarts-layer.min.js'></script>
+
+  <!-- Page level custom scripts -->
+  <script src="./charts/datatables.js"></script>
+  <script src="./charts/chart-bar.js"></script>
+  <script src="./charts/chart-pie.js"></script>
+  <script src="./charts/chart-map.js"></script>
+
+  <script src="./src/js/countries_meta.js"></script>
+
+</body>
+
+</html>

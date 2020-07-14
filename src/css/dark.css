@@ -1,0 +1,56 @@
+.text-gray-800 {
+    color: #6c7293 !important;
+}
+
+#content-wrapper {
+    background-color: black  !important;
+}
+
+.card {
+    background-color: #191c24 !important;
+    border: none !important;
+}
+
+.card-header {
+    background-color: #191c24 !important;
+    border-bottom: none !important;
+}
+
+
+/* Data Table */
+.custom-select {
+    background-color: transparent !important;
+}
+
+.page-link {
+    background-color: transparent !important;
+}
+
+.page-item.disabled .page-link {
+    background-color: transparent !important;
+}
+
+.page-item.active .page-link {
+    background-color: #4e73df !important;
+}
+
+.page-link:hover {
+    background-color: #4e73df !important;
+}
+
+.page-link::selection {
+    background-color: transparent !important;
+}
+
+.table {
+    color: #6c7293 !important;
+}
+
+.table thead th {
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+.table th {
+    border-bottom: 1px solid #e3e6f0 !important;
+}
