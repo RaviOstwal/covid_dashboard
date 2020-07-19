@@ -14,6 +14,12 @@ const map = new mapboxgl.Map({
     zoom: 1 // starting zoom
 });
 
+// disable map zoom when using scroll
+map.scrollZoom.disable();
+
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
+
 function convertData(countries, dataColumn) {
     let res = [];
     let min = Number.MAX_SAFE_INTEGER;
